@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Full Stack Software Engineer</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <style>
+    :root {
+      --primary: #00eaff;
+      --bg: #050505;
+      --card-bg: rgba(255, 255, 255, 0.1);
+      --text: #ffffff;
+    }
+
+    [data-theme="light"] {
+      --primary: #0066ff;
+      --bg: #f6f9ff;
+      --card-bg: rgba(0, 0, 0, 0.05);
+      --text: #000000;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      backdrop-filter: blur(15px);
+      background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.15));
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      z-index: 999;
+      padding: 18px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+    }
+
+    nav a {
+      color: var(--text);
+      margin: 0 25px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.05rem;
+      position: relative;
+      padding: 5px 0;
+      transition: 0.4s ease;
+    }
+
+    nav a:hover { color: var(--primary); }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 10px;
+      transition: width 0.4s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    #themeToggle {
+      position: fixed;
+      right: 25px;
+      top: 18px;
+      background: var(--primary);
+      border: none;
+      padding: 8px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      color: #000;
+      font-weight: bold;
+      z-index: 1000;
+    }
+
+    /* Hero */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      background: url('https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=1600') center/cover;
+      animation: heroMove 18s ease-in-out infinite;
+      background-size: 110%;
+    }
+
+    @keyframes heroMove {
+      0% { background-position: center; }
+      50% { background-position: center 20%; }
+      100% { background-position: center; }
+    }
+
+    /* Floating 3D Elements */ {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: var(--primary);
+      opacity: 0.15;
+      filter: blur(10px);
+      border-radius: 50%;
+      animation: float 6s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-40px) translateX(30px); }
+      100% { transform: translateY(0) translateX(0); }
+    }
+
+    /* Particle Background */
+    #particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    section {
+      padding: 140px 0;
+    }
+
+    .section-card {
+      background: var(--card-bg);
+      border-radius: 25px;
+      padding: 60px;
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: 0.5s;
+    }
+
+    /* Improved About Section */
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .about-box {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      transition: 0.4s;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .about-box:hover {
+      transform: translateY(-10px);
+      border-color: var(--primary);
+    }
+
+    /* Improved Contact */
+    .contact-box {
+      padding: 25px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 20px;
+      margin-bottom: 15px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    footer {
+      padding: 40px;
+      text-align: center;
+      background: rgba(0,0,0,0.5);
+      margin-top: 50px;
+    }
+    /* Project image animation */
+    .project-img {
+      width: 100%;
+      border-radius: 20px;
+      margin-bottom: 15px;
+      animation: imgFloat 6s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    @keyframes imgFloat {
+      0% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-12px) scale(1.03); }
+      100% { transform: translateY(0px) scale(1); }
+    }
+
+  /* Full‑width About Section */
+    .about-full {
+      width: 100%;
+      padding: 0;
+    }
+
+    .about-full .section-card {
+      width: 100%;
+      border-radius: 0;
+      padding: 100px 8%;
+      background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(0,0,0,0.2));
+      border: none;
+      box-shadow: inset 0 0 80px rgba(0,0,0,0.4);
+    }
+
+    .about-box {
+      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+      backdrop-filter: blur(20px);
+    }
+
+    .about-grid {
+      margin-top: 40px;
+    }
+
+  /* About Image Float */
+    @keyframes aboutImgFloat {
+      0% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-14px) scale(1.03); }
+      100% { transform: translateY(0) scale(1); }
+    }
+
+    /* Icon Glow Hover */
+    .about-box:hover {
+      box-shadow: 0 0 25px rgba(0,255,255,0.35), 0 0 10px rgba(0,255,255,0.2);
+      transform: translateY(-12px) scale(1.03);
+    }
+    .project-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    transition: 0.3s ease-in-out;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 25px rgba(0,0,0,0.2);
+}
+
+.project-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.project-content {
+    padding: 15px;
+    text-align: center;
+}
+
+.project-content h4 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.visit-btn {
+    background: #007bff;
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 6px;
+    display: inline-block;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.visit-btn:hover {
+    background: #0056b3;
+}
+
+/* Projects Section Background */
+.projects-section {
+  position: relative;
+  padding: 12px 0;
+  overflow: hidden;
+}
+
+.projects-bg {
+  background-image: url("https://images.unsplash.com/photo-1537432376769-00a2d223f430");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Parallax */
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.25;
+  filter: brightness(0.6) blur(2px);
+}
+
+/* Title */
+.section-title {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 50px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Grid */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Card */
+.project-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: .4s ease;
+  position: relative;
+}
+
+.project-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+}
+
+/* Image */
+.project-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  transition: .5s ease;
+}
+
+.project-card:hover .project-img {
+  transform: scale(1.1);
+}
+
+/* Info */
+.project-info {
+  padding: 20px;
+  color: #fff;
+}
+/* Footer */
+.footer-section {
+  position: relative;
+  padding: 70px 0 40px;
+  margin-top: 60px;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  overflow: hidden;
+}
+
+.footer-overlay {
+  position: absolute;
+  inset: 0;
+  background: url("https://images.unsplash.com/photo-1522199755839-a2bacb67c546") center/cover;
+  opacity: 0.15;
+  filter: brightness(0.5) blur(4px);
+  z-index: 0;
+}
+
+.footer-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+.footer-brand {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 1px;
+}
+
+.footer-text {
+  color: var(--text);
+  opacity: 0.8;
+  margin-top: 10px;
+}
+
+.footer-title {
+  color: var(--primary);
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.footer-links,
+.footer-contact {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li,
+.footer-contact li {
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: var(--text);
+  transition: 0.3s;
+}
+
+.footer-links a:hover {
+  color: var(--primary);
+  padding-left: 8px;
+}
+
+.footer-social a {
+  color: var(--primary);
+  font-size: 1.4rem;
+  margin-right: 15px;
+  transition: 0.3s ease;
+}
+
+.footer-social a:hover {
+  color: #fff;
+  transform: scale(1.15);
+}
+
+.footer-bottom {
+  color: var(--text);
+  opacity: 0.7;
+  margin-top: 20px;
+}
+
+
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<button id="themeToggle">Light</button>
+
+<nav>
+  <div class="d-flex align-items-center gap-4">
+    <span style="color:var(--primary); font-weight:700; font-size:1.3rem; letter-spacing:1px;">AKASH.dev</span>
+    <a href="#hero">Home</a>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<section id="hero" class="hero animated-hero-bg">
+  <!-- Animated Background Layer -->
+  <div class="hero-bg-animation"></div>
+
+  <!-- Floating 3D Elements -->
+  <div class="float-3d" style="left:10%; top:20%"></div>
+  <div class="float-3d" style="right:15%; top:40%"></div>
+
+  <div class="text-white">
+    <h1 class="fade-up">Full Stack Software Engineer</h1>
+    <p class="fade-up">Crafting premium digital experiences with stunning visuals & modern tech</p>
+  </div>
+</section>
+
+<section id="about" class="about-full">
+  <div class="section-card fade-section">
+    <h2 class="mb-4">About Me</h2>
+    <h4 style="color:var(--primary); font-weight:600; margin-bottom:20px;">💼 10+ Years of Experience</h4>
+
+    <p class="lead mb-4">
+      I am a highly versatile Full Stack Software Engineer with over <strong>10+ years of real‑world experience</strong>
+      in building high‑performance digital ecosystems — from modern websites and e‑commerce systems to
+      AI‑powered platforms and scalable mobile applications.
+    </p>
+
+    <p class="lead mb-4">
+      I engineer full‑cycle solutions across frontend, backend, mobile, cloud, DevOps, and digital strategy.
+      Along with engineering, I also contribute as a <strong>Digital Marketing Strategist</strong> and
+      <strong>Technical Training Coordinator</strong>, mentoring teams in Python, AI/ML, APIs, cloud and Scrum.
+    </p>
+
+   
+
+    <div class="about-grid">
+      <div class="about-box">⚡ Frontend: HTML, CSS, JavaScript, Bootstrap</div>
+      <div class="about-box">🎨 UI Frameworks: React, Next.js, Vue.js</div>
+      <div class="about-box">🧩 Backend: Node.js, Python, REST APIs, Microservices</div>
+      <div class="about-box">🗄️ Databases: PostgreSQL, MongoDB, Redis</div>
+      <div class="about-box">🧱 CMS & Frameworks: WordPress, Laravel, Magento, Shopify</div>
+      <div class="about-box">📱 Mobile Apps: Flutter, iOS App Development</div>
+      <div class="about-box">🤖 AI/ML: Model Integration, Automation, Python ML Tools</div>
+      <div class="about-box">🚀 DevOps: Docker, AWS, CI/CD, Kubernetes, Linux</div>
+      <div class="about-box">📈 Digital Marketing: SEO, SMO, PPC, Brand Strategy</div>
+      <div class="about-box">🗂️ Project Management: Scrum, Sprint Planning, Agile Delivery</div>
+      <div class="about-box">🎓 Training: Python, AI/ML, REST API, Cloud Basics</div>
+      <div class="about-box">🛠 Tools: Git, VS Code, Figma, Postman, Jira</div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="projects-section">
+  <div class="projects-bg"></div>
+
+  <div class="container position-relative">
+    <h2 class="section-title text-white" style="text-align: center;">Featured Projects</h2>
+
+    <div class="projects-grid">
+      
+      <!-- Project Card -->
+      <div class="project-card">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085" class="project-img" alt="Fertijoy IVF">
+        <div class="project-info">
+          <h3>Fertijoy IVF</h3>
+          <p>Modern IVF center website with fast performance & excellent UI/UX.</p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img src="https://images.unsplash.com/photo-1532074205216-d0e1f4b87368" class="project-img" alt="Vinayak Siddhi Hospital">
+        <div class="project-info">
+          <h3>Vinayak Siddhi Hospital</h3>
+          <p>Complete hospital website with services, doctor profiles & booking.</p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img src="https://images.unsplash.com/photo-1605379399642-870262d3d051" class="project-img" alt="VCC Ayurveda">
+        <div class="project-info">
+          <h3>VCC Ayurveda</h3>
+          <p>Premium Ayurvedic wellness center website redesign.</p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" class="project-img" alt="Shrikedarnath Temple">
+        <div class="project-info">
+          <h3>Shrikedarnath Temple</h3>
+          <p>Temple website with galleries, donation, events & rituals.</p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d" class="project-img" alt="Pegasus One">
+        <div class="project-info">
+          <h3>Pegasus One</h3>
+          <p>High-end corporate software company's website revamp.</p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085" class="project-img" alt="DesignXpand Agency">
+        <div class="project-info">
+          <h3>DesignXpand</h3>
+          <p>Creative agency portfolio showcasing services & work.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<footer class="footer-section">
+  <div class="footer-overlay"></div>
+
+  <div class="container position-relative">
+    
+    <div class="row justify-content-between align-items-start">
+
+      <!-- Brand + Intro -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <h3 class="footer-brand">AKASH.dev</h3>
+        <p class="footer-text">
+          Full Stack Software Engineer with 10+ years of experience in Web, Mobile, AI/ML, Cloud, 
+          E-commerce, DevOps & Digital Growth Solutions.
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <h5 class="footer-title">Quick Links</h5>
+        <ul class="footer-links">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About Me</a></li>
+          <li><a href="#projects">Featured Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <h5 class="footer-title">Contact Details</h5>
+        <ul class="footer-contact">
+          <li>📞 <strong>+91 9876543210</strong></li>
+          <li>📧 <strong>akashdeveloper@example.com</strong></li>
+          <li>📍 Noida, India</li>
+        </ul>
+
+        <div class="footer-social mt-3">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom text-center mt-4">
+      © 2025 <strong>AKASH.dev</strong> • All Rights Reserved.
+    </div>
+  </div>
+</footer>
+
