@@ -445,6 +445,47 @@
   opacity: 0.7;
   margin-top: 20px;
 }
+.project-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+
+.project-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.project-info {
+  padding: 20px;
+}
+
+.project-btn {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 18px;
+  background: linear-gradient(135deg, #4f46e5, #9333ea);
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.project-btn:hover {
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(147, 51, 234, 0.4);
+}
 
 
 </style>
@@ -452,8 +493,6 @@
 <body>
 
 <canvas id="particles"></canvas>
-
-<button id="themeToggle">Light</button>
 
 <nav>
   <div class="d-flex align-items-center gap-4">
@@ -525,7 +564,7 @@
       
       <!-- Project Card -->
       <div class="project-card">
-        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085" class="project-img" alt="Fertijoy IVF">
+        <img src="https://myfavworld-com.stackstaging.com/globalivfclinic/wp-content/uploads/2016/11/BLOG-1.png" class="project-img" alt="Fertijoy IVF">
         <div class="project-info">
           <h3>Fertijoy IVF</h3>
           <p>Modern IVF center website with fast performance & excellent UI/UX.</p>
@@ -536,7 +575,7 @@
       </div>
 
       <div class="project-card">
-        <img src="https://images.unsplash.com/photo-1532074205216-d0e1f4b87368" class="project-img" alt="Vinayak Siddhi Hospital">
+        <img src="https://www.vinayaksiddhihospital.com/vinayak/banner4.jpg" class="project-img" alt="Vinayak Siddhi Hospital">
         <div class="project-info">
           <h3>Vinayak Siddhi Hospital</h3>
           <p>Complete hospital website with services, doctor profiles & booking.</p>
@@ -547,7 +586,7 @@
       </div>
 
       <div class="project-card">
-        <img src="https://images.unsplash.com/photo-1605379399642-870262d3d051" class="project-img" alt="VCC Ayurveda">
+        <img src="https://vccayurveda.com/wp-content/uploads/2023/07/infor-3-1.jpg" class="project-img" alt="VCC Ayurveda">
         <div class="project-info">
           <h3>VCC Ayurveda</h3>
           <p>Premium Ayurvedic wellness center website redesign.</p>
@@ -558,7 +597,7 @@
       </div>
 
       <div class="project-card">
-        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" class="project-img" alt="Shrikedarnath Temple">
+        <img src="https://shrikedarnathdham.com/wp-content/uploads/2024/01/New-Project-68.webp" class="project-img" alt="Shrikedarnath Temple">
         <div class="project-info">
           <h3>Shrikedarnath Temple</h3>
           <p>Temple website with galleries, donation, events & rituals.</p>
@@ -569,7 +608,7 @@
       </div>
 
       <div class="project-card">
-        <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d" class="project-img" alt="Pegasus One">
+        <img src="https://cdn-lbgih.nitrocdn.com/LBWlPrScsPHewdhHEsrZLEVaXaomPajI/assets/images/optimized/rev-16c7b63/www.pegasusone.com/wp-content/uploads/2024/02/software-development-company-california.webp" class="project-img" alt="Pegasus One">
         <div class="project-info">
           <h3>Pegasus One</h3>
           <p>High-end corporate software company's website revamp.</p>
@@ -580,7 +619,7 @@
       </div>
 
       <div class="project-card">
-        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085" class="project-img" alt="DesignXpand Agency">
+        <img src="https://designxpand.com/wp-content/uploads/2025/07/seo-and-website-designing-company.png" class="project-img" alt="DesignXpand Agency">
         <div class="project-info">
           <h3>DesignXpand</h3>
           <p>Creative agency portfolio showcasing services & work.</p>
